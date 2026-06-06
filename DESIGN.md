@@ -2,7 +2,11 @@
 
 
 
-!\[ER dijagram baze](./docs/er-diagram.png)
+<p align="center">
+
+&#x20; <img src="./docs/er-diagram.png" alt="ER dijagram baze" width="900">
+
+</p>
 
 
 
