@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: metropolitan_quiz_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: quiz_lms
+      POSTGRES_USER: quiz_user
+      POSTGRES_PASSWORD: quiz_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - quiz_postgres_data:/var/lib/postgresql/data
+
+volumes:
+  quiz_postgres_data:
