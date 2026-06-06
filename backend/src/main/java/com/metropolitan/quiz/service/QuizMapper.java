@@ -4,6 +4,7 @@ import com.metropolitan.quiz.dto.AnswerOptionResponse;
 import com.metropolitan.quiz.dto.QuestionResponse;
 import com.metropolitan.quiz.dto.QuizResponse;
 import com.metropolitan.quiz.dto.QuizSummaryResponse;
+import com.metropolitan.quiz.dto.TeacherQuizSummaryResponse;
 import com.metropolitan.quiz.entity.AnswerOption;
 import com.metropolitan.quiz.entity.Question;
 import com.metropolitan.quiz.entity.Quiz;
@@ -60,6 +61,18 @@ public class QuizMapper {
                 quiz.getDescription(),
                 quiz.getOpensAt(),
                 quiz.getClosesAt()
+        );
+    }
+
+    public TeacherQuizSummaryResponse toTeacherSummaryResponse(Quiz quiz) {
+        return new TeacherQuizSummaryResponse(
+                quiz.getId(),
+                quiz.getTitle(),
+                quiz.getDescription(),
+                quiz.getOpensAt(),
+                quiz.getClosesAt(),
+                quiz.getStatus(),
+                quiz.getQuestions() == null ? 0 : quiz.getQuestions().size()
         );
     }
 }

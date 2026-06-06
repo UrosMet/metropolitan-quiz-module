@@ -5,6 +5,8 @@ import com.metropolitan.quiz.dto.CreateAnswerOptionRequest;
 import com.metropolitan.quiz.dto.CreateQuestionRequest;
 import com.metropolitan.quiz.dto.CreateQuizRequest;
 import com.metropolitan.quiz.dto.QuizResponse;
+import com.metropolitan.quiz.dto.TeacherQuizSummaryResponse;
+import java.util.Comparator;
 import com.metropolitan.quiz.entity.*;
 import com.metropolitan.quiz.repository.AppUserRepository;
 import com.metropolitan.quiz.repository.QuizRepository;
@@ -171,5 +173,24 @@ public class TeacherQuizService {
         }
 
         return errors;
+    }
+
+    @Transactional
+    public List<TeacherQuizSummaryResponse> getMyQuizzes() {
+        userContext.requireTeacher();
+
+        Long teacherId = userContext.currentUserId();
+
+        appUserRepository.findByIdAndRole(teacherId, UserRole.TEACHER)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.FORBIDDEN,
+                        "Teacher user does not exist or does not have TEACHER role"
+                ));
+
+        return quizRepository.findByTeacherIdOrderByCreatedAtDesc(teacherId)
+                .stream()
+                .sorted(Comparator.comparing(Quiz::getCreatedAt).reversed())
+                .map(quizMapper::toTeacherSummaryResponse)
+                .toList();
     }
 }
