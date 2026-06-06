@@ -2,7 +2,7 @@
 
 
 
-!\[ER dijagram baze](docs/er-diagram.png)
+!\[ER dijagram baze](./docs/er-diagram.png)
 
 
 
