@@ -1,3 +1,9 @@
+@'
+
+\# DESIGN.md
+
+
+
 \## ER dijagram baze
 
 
@@ -131,8 +137,6 @@ erDiagram
 &#x20;       BIGINT option\_id FK
 
 &#x20;   }
-
-```
 
 \### Objašnjenje modela
 
