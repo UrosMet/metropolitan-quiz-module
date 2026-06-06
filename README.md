@@ -156,21 +156,10 @@ Na Windows-u:
 
 ```bash
 
-mvnw.cmd spring-boot:run
+./mvnw.cmd spring-boot:run
 
 ```
 
-
-
-Na Linux/macOS-u:
-
-
-
-```bash
-
-./mvnw spring-boot:run
-
-```
 
 
 
@@ -202,23 +191,10 @@ Na Windows-u:
 
 cd backend
 
-mvnw.cmd clean test
+./mvnw.cmd clean test
 
 ```
 
-
-
-Na Linux/macOS-u:
-
-
-
-```bash
-
-cd backend
-
-./mvnw clean test
-
-```
 
 
 
@@ -240,15 +216,6 @@ http://localhost:8080/swagger-ui.html
 
 ```
 
-
-
-OpenAPI JSON je dostupan na:
-
-
-
-```text
-
-http://localhost:8080/v3/api-docs
 
 ```
 

@@ -18,23 +18,8 @@ function translateApiError(message: string) {
         return 'Vreme otvaranja mora biti pre vremena zatvaranja.'
     }
 
-    if (message === 'opensAt is required') {
-        return 'Vreme otvaranja je obavezno.'
-    }
-
-    if (message === 'closesAt is required') {
-        return 'Vreme zatvaranja je obavezno.'
-    }
-
     if (message === 'Quiz must contain at least one question') {
         return 'Kviz mora imati najmanje jedno pitanje.'
-    }
-
-    if (message.includes('must contain at least one option')) {
-        return message.replace(
-            /Question (\d+) must contain at least one option/,
-            'Pitanje $1 mora imati najmanje jednu opciju.'
-        )
     }
 
     if (message.includes('must contain at least two options')) {
@@ -82,38 +67,6 @@ function translateApiError(message: string) {
         return 'Rezultat za ovaj kviz nije pronađen.'
     }
 
-    if (message === 'Teacher user does not exist or does not have TEACHER role') {
-        return 'Nastavnik ne postoji ili nema odgovarajuću ulogu.'
-    }
-
-    if (message === 'Student user does not exist or does not have STUDENT role') {
-        return 'Student ne postoji ili nema odgovarajuću ulogu.'
-    }
-
-    if (message === 'This endpoint requires role TEACHER') {
-        return 'Ova akcija je dozvoljena samo nastavniku.'
-    }
-
-    if (message === 'This endpoint requires role STUDENT') {
-        return 'Ova akcija je dozvoljena samo studentu.'
-    }
-
-    if (message === 'Duplicate answer for the same question is not allowed') {
-        return 'Nije dozvoljeno slanje duplog odgovora za isto pitanje.'
-    }
-
-    if (message.includes('Submitted question does not belong to this quiz')) {
-        return 'Poslato pitanje ne pripada ovom kvizu.'
-    }
-
-    if (message.includes('Selected option does not belong to question')) {
-        return 'Izabrana opcija ne pripada tom pitanju.'
-    }
-
-    if (message.includes('SINGLE_CHOICE question') && message.includes('accepts only one selected option')) {
-        return 'Pitanje tipa "Jedan tačan odgovor" prihvata samo jednu izabranu opciju.'
-    }
-
     if (message === 'Only draft quizzes can be deleted') {
         return 'Samo nacrti kvizova mogu biti obrisani.'
     }
@@ -123,6 +76,26 @@ function translateApiError(message: string) {
     }
 
     return message
+}
+
+function backendNotRunningMessage() {
+    return 'Backend server nije pokrenut. Pokreni backend aplikaciju na portu 8080.'
+}
+
+async function parseResponseBody(response: Response) {
+    const text = await response.text()
+
+    if (!text) {
+        return null
+    }
+
+    try {
+        return JSON.parse(text)
+    } catch {
+        return {
+            message: text
+        }
+    }
 }
 
 async function apiRequest<T>(
@@ -139,15 +112,28 @@ async function apiRequest<T>(
         headers.set('Content-Type', 'application/json')
     }
 
-    const response = await fetch(path, {
-        ...options,
-        headers
-    })
+    let response: Response
 
-    const text = await response.text()
-    const data = text ? JSON.parse(text) : null
+    try {
+        response = await fetch(path, {
+            ...options,
+            headers
+        })
+    } catch {
+        throw new Error(backendNotRunningMessage())
+    }
+
+    const data = await parseResponseBody(response)
 
     if (!response.ok) {
+        if (
+            response.status === 502 ||
+            response.status === 503 ||
+            response.status === 504
+        ) {
+            throw new Error(backendNotRunningMessage())
+        }
+
         const translatedErrors = Array.isArray(data?.errors)
             ? data.errors.map((error: string) => translateApiError(error))
             : []
@@ -194,6 +180,16 @@ export function publishQuiz(user: CurrentUser, quizId: number) {
     )
 }
 
+export function deleteDraftQuiz(user: CurrentUser, quizId: number) {
+    return apiRequest<void>(
+        `/api/teacher/quizzes/${quizId}`,
+        user,
+        {
+            method: 'DELETE'
+        }
+    )
+}
+
 export function getAvailableQuizzes(user: CurrentUser) {
     return apiRequest<QuizSummaryResponse[]>(
         '/api/student/quizzes/available',
@@ -227,15 +223,5 @@ export function getQuizResult(user: CurrentUser, quizId: number) {
     return apiRequest<QuizResultResponse>(
         `/api/student/quizzes/${quizId}/result`,
         user
-    )
-}
-
-export function deleteDraftQuiz(user: CurrentUser, quizId: number) {
-    return apiRequest<void>(
-        `/api/teacher/quizzes/${quizId}`,
-        user,
-        {
-            method: 'DELETE'
-        }
     )
 }
