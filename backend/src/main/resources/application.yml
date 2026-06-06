@@ -30,6 +30,14 @@ spring:
     serialization:
       write-dates-as-timestamps: false
 
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
 logging:
   level:
     org.hibernate.SQL: debug

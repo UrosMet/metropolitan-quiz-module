@@ -193,4 +193,33 @@ public class TeacherQuizService {
                 .map(quizMapper::toTeacherSummaryResponse)
                 .toList();
     }
+
+    @Transactional
+    public void deleteDraftQuiz(Long quizId) {
+        userContext.requireTeacher();
+
+        Long teacherId = userContext.currentUserId();
+
+        Quiz quiz = quizRepository.findById(quizId)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Quiz not found"
+                ));
+
+        if (!quiz.getTeacher().getId().equals(teacherId)) {
+            throw new ResponseStatusException(
+                    HttpStatus.FORBIDDEN,
+                    "You can delete only your own quizzes"
+            );
+        }
+
+        if (quiz.getStatus() != QuizStatus.DRAFT) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Only draft quizzes can be deleted"
+            );
+        }
+
+        quizRepository.delete(quiz);
+    }
 }
