@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,8 @@ public class Submission {
 
     @NotNull
     @PositiveOrZero
-    @Column(name = "score", nullable = false)
-    private Integer score;
+    @Column(name = "score", nullable = false, precision = 10, scale = 2)
+    private BigDecimal score;
 
     @NotNull
     @Column(name = "submitted_at", nullable = false)
@@ -54,7 +55,7 @@ public class Submission {
     @OneToMany(mappedBy = "submission", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubmissionAnswer> answers = new ArrayList<>();
 
-    public Submission(Quiz quiz, AppUser student, Integer score) {
+    public Submission(Quiz quiz, AppUser student, BigDecimal score) {
         this.quiz = quiz;
         this.student = student;
         this.score = score;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.HashSet;
 import java.util.List;
@@ -149,8 +150,8 @@ public class StudentQuizService {
         Map<Long, Set<Long>> selectedOptionIdsByQuestionId = normalizeAnswers(request);
         validateSubmittedAnswers(quiz, selectedOptionIdsByQuestionId);
 
-        int score = gradingService.calculateScore(quiz, selectedOptionIdsByQuestionId);
-        int maxScore = gradingService.calculateMaxScore(quiz);
+        BigDecimal score = gradingService.calculateScore(quiz, selectedOptionIdsByQuestionId);
+        BigDecimal maxScore = gradingService.calculateMaxScore(quiz);
 
         Submission submission = new Submission(quiz, student, score);
 

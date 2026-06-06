@@ -1,12 +1,13 @@
 package com.metropolitan.quiz.dto;
 
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public record QuizSubmitResponse(
         Long quizId,
         Long studentId,
-        Integer score,
-        Integer maxScore,
+        BigDecimal score,
+        BigDecimal maxScore,
         OffsetDateTime submittedAt
 ) {
 }
