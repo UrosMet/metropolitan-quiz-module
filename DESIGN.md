@@ -10,44 +10,24 @@
 
 
 
-\### ObjaÅ¡njenje modela
+### Objasnjenje modela
 
-
-
-Tabela `app_users` Äuva demo korisnike sistema. Korisnik moÅ¾e imati ulogu `TEACHER` ili `STUDENT`.
-
-
+Tabela `app_users` cuva demo korisnike sistema. Korisnik moze imati ulogu `TEACHER` ili `STUDENT`.
 
 Tabela `quizzes` predstavlja kviz. Svaki kviz pripada jednom nastavniku preko kolone `teacher_id`. Kviz ima vremenski prozor definisan kolonama `opens_at` i `closes_at`, kao i status `DRAFT` ili `PUBLISHED`.
 
+Tabela `questions` cuva pitanja za kviz. Jedan kviz moze imati vise pitanja. Svako pitanje ima tekst, broj poena, tip pitanja i poziciju u kvizu.
 
+Tabela `answer_options` cuva ponudjene odgovore za svako pitanje. Polje `is_correct` oznacava da li je opcija tacna. Ovo polje se koristi samo na backend-u za ocenjivanje i ne vraca se studentu kroz API.
 
-Tabela `questions` Äuva pitanja za kviz. Jedan kviz moÅ¾e imati viÅ¡e pitanja. Svako pitanje ima tekst, broj poena, tip pitanja i poziciju u kvizu.
+Tabela `submissions` predstavlja jednu studentsku predaju kviza. Svaka predaja pripada jednom studentu i jednom kvizu. Rezultat se cuva u koloni `score`.
 
+Tabela `submission_answers` cuva pojedinacne izabrane opcije u okviru jedne predaje. Na ovaj nacin se moze rekonstruisati koje opcije je student izabrao za svako pitanje.
 
-
-Tabela `answer_options` Äuva ponuÄ‘ene odgovore za svako pitanje. Polje `is_correct` oznaÄava da li je opcija taÄna. Ovo polje se koristi samo na backend-u za ocenjivanje i ne vraÄ‡a se studentu kroz API.
-
-
-
-Tabela `submissions` predstavlja jednu studentsku predaju kviza. Svaka predaja pripada jednom studentu i jednom kvizu. Rezultat se Äuva u koloni `score`.
-
-
-
-Tabela `submission_answers` Äuva pojedinaÄne izabrane opcije u okviru jedne predaje. Na ovaj naÄin se moÅ¾e rekonstruisati koje opcije je student izabrao za svako pitanje.
-
-
-
-\### OgraniÄenje jedne predaje
-
-
+### Ogranicenje jedne predaje
 
 Na tabeli `submissions` postoji unique constraint nad kolonama:
 
-
-
 ```sql
-
 UNIQUE (quiz_id, student_id)
-
 
