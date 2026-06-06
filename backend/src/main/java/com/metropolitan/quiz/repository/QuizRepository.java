@@ -19,6 +19,6 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
           OffsetDateTime closesAt
   );
 
-  @EntityGraph(attributePaths = {"questions", "questions.options"})
+  @EntityGraph(attributePaths = {"questions"})
   Optional<Quiz> findWithQuestionsById(Long id);
 }
