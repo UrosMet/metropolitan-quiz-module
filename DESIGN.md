@@ -1,4 +1,4 @@
-\## ER dijagram baze
+﻿\## ER dijagram baze
 
 
 
@@ -10,35 +10,35 @@
 
 
 
-\### Objašnjenje modela
+\### ObjaÅ¡njenje modela
 
 
 
-Tabela `app\_users` čuva demo korisnike sistema. Korisnik može imati ulogu `TEACHER` ili `STUDENT`.
+Tabela `app_users` Äuva demo korisnike sistema. Korisnik moÅ¾e imati ulogu `TEACHER` ili `STUDENT`.
 
 
 
-Tabela `quizzes` predstavlja kviz. Svaki kviz pripada jednom nastavniku preko kolone `teacher\_id`. Kviz ima vremenski prozor definisan kolonama `opens\_at` i `closes\_at`, kao i status `DRAFT` ili `PUBLISHED`.
+Tabela `quizzes` predstavlja kviz. Svaki kviz pripada jednom nastavniku preko kolone `teacher_id`. Kviz ima vremenski prozor definisan kolonama `opens_at` i `closes_at`, kao i status `DRAFT` ili `PUBLISHED`.
 
 
 
-Tabela `questions` čuva pitanja za kviz. Jedan kviz može imati više pitanja. Svako pitanje ima tekst, broj poena, tip pitanja i poziciju u kvizu.
+Tabela `questions` Äuva pitanja za kviz. Jedan kviz moÅ¾e imati viÅ¡e pitanja. Svako pitanje ima tekst, broj poena, tip pitanja i poziciju u kvizu.
 
 
 
-Tabela `answer\_options` čuva ponuđene odgovore za svako pitanje. Polje `is\_correct` označava da li je opcija tačna. Ovo polje se koristi samo na backend-u za ocenjivanje i ne vraća se studentu kroz API.
+Tabela `answer_options` Äuva ponuÄ‘ene odgovore za svako pitanje. Polje `is_correct` oznaÄava da li je opcija taÄna. Ovo polje se koristi samo na backend-u za ocenjivanje i ne vraÄ‡a se studentu kroz API.
 
 
 
-Tabela `submissions` predstavlja jednu studentsku predaju kviza. Svaka predaja pripada jednom studentu i jednom kvizu. Rezultat se čuva u koloni `score`.
+Tabela `submissions` predstavlja jednu studentsku predaju kviza. Svaka predaja pripada jednom studentu i jednom kvizu. Rezultat se Äuva u koloni `score`.
 
 
 
-Tabela `submission\_answers` čuva pojedinačne izabrane opcije u okviru jedne predaje. Na ovaj način se može rekonstruisati koje opcije je student izabrao za svako pitanje.
+Tabela `submission_answers` Äuva pojedinaÄne izabrane opcije u okviru jedne predaje. Na ovaj naÄin se moÅ¾e rekonstruisati koje opcije je student izabrao za svako pitanje.
 
 
 
-\### Ograničenje jedne predaje
+\### OgraniÄenje jedne predaje
 
 
 
@@ -48,5 +48,6 @@ Na tabeli `submissions` postoji unique constraint nad kolonama:
 
 ```sql
 
-UNIQUE (quiz\_id, student\_id)
+UNIQUE (quiz_id, student_id)
+
 
