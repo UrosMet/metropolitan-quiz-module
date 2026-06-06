@@ -134,8 +134,6 @@ erDiagram
 
 ```
 
-
-
 \### Objašnjenje modela
 
 
