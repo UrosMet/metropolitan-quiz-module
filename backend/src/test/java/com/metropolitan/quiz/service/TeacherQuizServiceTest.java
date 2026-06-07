@@ -4,6 +4,7 @@ import com.metropolitan.quiz.auth.UserContext;
 import com.metropolitan.quiz.entity.*;
 import com.metropolitan.quiz.repository.AppUserRepository;
 import com.metropolitan.quiz.repository.QuizRepository;
+import com.metropolitan.quiz.service.impl.TeacherQuizServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,11 +33,11 @@ class TeacherQuizServiceTest {
     @Mock
     private QuizMapper quizMapper;
 
-    private TeacherQuizService teacherQuizService;
+    private TeacherQuizServiceImpl teacherQuizService;
 
     @BeforeEach
     void setUp() {
-        teacherQuizService = new TeacherQuizService(
+        teacherQuizService = new TeacherQuizServiceImpl(
                 userContext,
                 appUserRepository,
                 quizRepository,

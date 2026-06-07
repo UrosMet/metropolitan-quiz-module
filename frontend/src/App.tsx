@@ -422,33 +422,29 @@ function App() {
                       )}
                     </div>
 
-                    {(submitResult || savedResult) ? (
+                    {submitResult ? (
+                        <div className="result-box">
+                          <h3>Kviz je uspešno predat</h3>
+                          <p>
+                            Rezultat: <strong>{formatScore(submitResult.score)}</strong> /{' '}
+                            <strong>{formatScore(submitResult.maxScore)}</strong>
+                          </p>
+                          <p>Predato: {formatDate(submitResult.submittedAt)}</p>
+                        </div>
+                    ) : savedResult ? (
                         <>
                           <div className="info">
                             Već ste predali ovaj kviz. Ponovna predaja nije dozvoljena.
                           </div>
 
-                          {submitResult && (
-                              <div className="result-box">
-                                <h3>Kviz je uspešno predat</h3>
-                                <p>
-                                  Rezultat: <strong>{formatScore(submitResult.score)}</strong> /{' '}
-                                  <strong>{formatScore(submitResult.maxScore)}</strong>
-                                </p>
-                                <p>Predato: {formatDate(submitResult.submittedAt)}</p>
-                              </div>
-                          )}
-
-                          {savedResult && (
-                              <div className="result-box">
-                                <h3>Sačuvan rezultat</h3>
-                                <p>
-                                  Rezultat: <strong>{formatScore(savedResult.score)}</strong> /{' '}
-                                  <strong>{formatScore(savedResult.maxScore)}</strong>
-                                </p>
-                                <p>Predato: {formatDate(savedResult.submittedAt)}</p>
-                              </div>
-                          )}
+                          <div className="result-box">
+                            <h3>Sačuvan rezultat</h3>
+                            <p>
+                              Rezultat: <strong>{formatScore(savedResult.score)}</strong> /{' '}
+                              <strong>{formatScore(savedResult.maxScore)}</strong>
+                            </p>
+                            <p>Predato: {formatDate(savedResult.submittedAt)}</p>
+                          </div>
                         </>
                     ) : (
                         <>

@@ -7,6 +7,7 @@ import com.metropolitan.quiz.grading.GradingService;
 import com.metropolitan.quiz.repository.AppUserRepository;
 import com.metropolitan.quiz.repository.QuizRepository;
 import com.metropolitan.quiz.repository.SubmissionRepository;
+import com.metropolitan.quiz.service.impl.StudentQuizServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -44,11 +45,11 @@ class StudentQuizServiceBusinessRulesTest {
     @Mock
     private GradingService gradingService;
 
-    private StudentQuizService studentQuizService;
+    private StudentQuizServiceImpl studentQuizService;
 
     @BeforeEach
     void setUp() {
-        studentQuizService = new StudentQuizService(
+        studentQuizService = new StudentQuizServiceImpl(
                 userContext,
                 appUserRepository,
                 quizRepository,
