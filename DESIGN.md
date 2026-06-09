@@ -144,10 +144,10 @@ Sa vise vremena bih dodao:
 - detaljniji prikaz rezultata po pitanju
 - prikaz tacnih odgovora studentu
 - pravu autentikaciju i autorizaciju preko Spring Security-ja i/ili JWT-a
-- dodatni tip pitanja `TRUE_FALSE`(nisam razumeo sta je ovo)
+- dodatni tip pitanja `TRUE_FALSE` (novi tip pitanja, koji bi automatski kreirao odgovore Tacno/Netacno)
+- frontend je genericki, sa vise vremena bih unapredio CSS, responzivnost i pop-up poruke
 - vise integracionih testova
 - deployment konfiguraciju za produkciono okruzenje
-- OpenApi je samo dodat nije 
 
 Granice trenutnog resenja:
 
