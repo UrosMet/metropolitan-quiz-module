@@ -127,7 +127,7 @@ Implementirani su unit testovi za logiku ocenjivanja, ukljucujuci:
 - `SINGLE_CHOICE`
 - `MULTIPLE_CHOICE`
 
-Dodatno su dodati unit testovi za poslovna pravila:
+Dodatno su dodati unit testovi za poslovna pravila na serveru:
 
 - validacija pri objavljivanju kviza
 - vremenski prozor za predaju kviza
@@ -142,11 +142,12 @@ Sa vise vremena bih dodao:
 - paginaciju na listi kvizova
 - editovanje vec kreiranog `DRAFT` kviza
 - detaljniji prikaz rezultata po pitanju
-- prikaz tacnih odgovora nakon predaje, ako nastavnik to dozvoli
-- pravu autentikaciju i autorizaciju preko Spring Security-ja ili JWT-a
-- dodatni tip pitanja `TRUE_FALSE`
+- prikaz tacnih odgovora studentu
+- pravu autentikaciju i autorizaciju preko Spring Security-ja i/ili JWT-a
+- dodatni tip pitanja `TRUE_FALSE`(nisam razumeo sta je ovo)
 - vise integracionih testova
 - deployment konfiguraciju za produkciono okruzenje
+- OpenApi je samo dodat nije 
 
 Granice trenutnog resenja:
 
